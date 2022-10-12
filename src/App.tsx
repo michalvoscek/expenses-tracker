@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext} from 'react'
+import {Route, BrowserRouter, Navigate, Routes} from "react-router-dom"
+import './App.css'
+import {DataLoader, AppContext} from './AppContext'
+import {Login} from './Login'
+import {Dashboard} from './Dashboard'
 
-function App() {
+const App = () => {
+  const appContext = useContext(AppContext)!
+  const redirectToLogin: boolean = !appContext.currentUser
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          {redirectToLogin && <Route
+              path="*"
+              element={<Navigate to="/login" replace />}
+          />}
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+export default () => (
+  <DataLoader>
+    <App/>
+  </DataLoader>
+);
+
