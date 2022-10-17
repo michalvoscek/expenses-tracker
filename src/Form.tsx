@@ -1,17 +1,14 @@
 import React, {useContext, useState} from 'react'
 import _ from 'lodash'
-import moment from 'moment'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker'
 import Select from '@mui/material/Select'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
 import FormControl from '@mui/material/FormControl'
 import {AppContext} from './AppContext'
+import {DatePicker} from './DatePicker'
 import {types} from './types'
 
 export const Form = () => {
@@ -25,10 +22,6 @@ export const Form = () => {
     console.log(date!, Number(amount), type, desc)
     addTransaction(date!, Number(amount), type, desc)
   }
-  const setDates = (mnt: moment.Moment | null) => {
-    if (mnt) setDate(mnt!.format('YYYY-MM-DD'))
-    else setDate(null)
-  } 
 
   return (
     <React.Fragment>
@@ -41,15 +34,7 @@ export const Form = () => {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DesktopDatePicker
-            label="Date"
-            inputFormat="YYYY-MM-DD"
-            value={date}
-            onChange={setDates}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
+        <DatePicker label="Date" value={date} onChange={setDate} />
         <TextField
           value={amount}
           onChange={(e) => setAmount(e.target.value)}

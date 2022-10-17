@@ -1,21 +1,18 @@
 import React, {useContext} from 'react'
 import {AppContext} from './AppContext'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker'
-import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
+import {DatePicker} from './DatePicker'
 
 export const Filter = () => {
   const {filter, setFilter} = useContext(AppContext)!
   const {from, to} = filter
 
-  const onFromChange = (value: moment.Moment | null) => {
-    setFilter(value && value.format('YYYY-MM-DD'), to)
+  const onFromChange = (value: string | null) => {
+    setFilter(value, to)
   }
 
-  const onToChange = (value: moment.Moment | null) => {
-    setFilter(from, value && value.format('YYYY-MM-DD'))
+  const onToChange = (value: string | null) => {
+    setFilter(from, value)
   }
 
   return (
@@ -28,22 +25,8 @@ export const Filter = () => {
       noValidate
       autoComplete="off"
     >
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <DesktopDatePicker
-          label="From"
-          inputFormat="YYYY-MM-DD"
-          value={from}
-          onChange={onFromChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <DesktopDatePicker
-          label="To"
-          inputFormat="YYYY-MM-DD"
-          value={to}
-          onChange={onToChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
+      <DatePicker label="From" value={from} onChange={onFromChange} />
+      <DatePicker label="To" value={to} onChange={onToChange} />
     </Box>
     </React.Fragment>
   );
