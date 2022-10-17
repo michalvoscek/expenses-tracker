@@ -1,7 +1,8 @@
 import React, {useContext} from 'react'
-import {Route, BrowserRouter, Navigate, Routes} from "react-router-dom"
+import {BrowserRouter, Route,  Routes, Navigate} from "react-router-dom"
 import './App.css'
 import {DataLoader, AppContext} from './AppContext'
+import {Topbar} from './Topbar'
 import {Login} from './Login'
 import {Dashboard} from './Dashboard'
 
@@ -11,14 +12,16 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
+        <Topbar />
         <Routes>
-          {redirectToLogin && <Route
-              path="*"
-              element={<Navigate to="/login" replace />}
-          />}
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />}/>
+          {redirectToLogin ?
+            <Route path="*" element={<Navigate to="/login" replace />}/> :
+              <>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="*" element={<Navigate to="/dashboard" replace />}/>
+              </>
+          }
         </Routes>
       </BrowserRouter>
     </div>
