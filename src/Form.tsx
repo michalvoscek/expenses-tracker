@@ -11,15 +11,30 @@ import {AppContext} from './AppContext'
 import {DatePicker} from './DatePicker'
 import {types} from './types'
 
+const getAmountError = (value: string): boolean => {
+  if (!value || Number(value) === NaN) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export const Form = () => {
   const {addTransaction} = useContext(AppContext)!
   const [date, setDate] = useState<string | null>(null)
   const [amount, setAmount] = useState<string>('')
+  const [amountError, setAmountError] = useState<boolean>(false)
   const [type, setType] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    console.log(date!, Number(amount), type, desc)
+    const amntErr = getAmountError(amount)
+    setAmountError(amntErr)
+    if (amntErr) return
+    setDate(null)
+    setAmount('')
+    setType('')
+    setDesc('')
     addTransaction(date!, Number(amount), type, desc)
   }
 
@@ -28,19 +43,20 @@ export const Form = () => {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
+          '& > :not(style)': {m: 1, width: '25ch'},
         }}
         noValidate
         onSubmit={handleSubmit}
       >
         <DatePicker label="Date" value={date} onChange={setDate} />
         <TextField
+          error={amountError}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           label="Amount"
           variant="outlined"
         />
-        <FormControl fullWidth>
+        <FormControl>
           <InputLabel id="demo-simple-select-label">Type</InputLabel>
           <Select
             labelId="demo-simple-select-label"
