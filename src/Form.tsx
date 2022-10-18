@@ -44,7 +44,6 @@ export const Form = () => {
           <InputLabel id="demo-simple-select-label">Type</InputLabel>
           <Select
             labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={type}
             label="Type"
             onChange={(e) => setType(e.target.value)}

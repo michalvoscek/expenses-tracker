@@ -15,6 +15,7 @@ const App = () => {
         <Topbar />
         <Routes>
           <Route path="/login" element={<Login />} />
+          {/* protected routes */}
           {redirectToLogin ?
             <Route path="*" element={<Navigate to="/login" replace />}/> :
               <>
