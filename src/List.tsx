@@ -25,7 +25,7 @@ export const List = () => {
           {filteredTransactions.map(([date, amount, category, desc], i) => (
             <TableRow key={i}>
               <TableCell>{date}</TableCell>
-              <TableCell>{amount}</TableCell>
+              <TableCell sx={{...(amount > 0 ? {color: 'success.main'} : {})}}>{amount}</TableCell>
               <TableCell>{category}</TableCell>
               <TableCell>{desc}</TableCell>
             </TableRow>

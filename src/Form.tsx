@@ -13,8 +13,8 @@ import {types} from './types'
 
 export const Form = () => {
   const {addTransaction} = useContext(AppContext)!
-  const [date, setDate] = useState<string | null>('')
-  const [amount, setAmount] = useState<string| null>('')
+  const [date, setDate] = useState<string | null>(null)
+  const [amount, setAmount] = useState<string>('')
   const [type, setType] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
   const handleSubmit = (e: any) => {
@@ -31,7 +31,6 @@ export const Form = () => {
           '& > :not(style)': { m: 1, width: '25ch' },
         }}
         noValidate
-        autoComplete="off"
         onSubmit={handleSubmit}
       >
         <DatePicker label="Date" value={date} onChange={setDate} />

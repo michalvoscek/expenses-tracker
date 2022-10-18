@@ -20,7 +20,10 @@ export const Topbar = () => {
   return (<Box sx={{ flexGrow: 1 }}>
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
+          Expense Tracker
+        </Typography>
+        <Typography variant="h6" component="div">
           {currentUser}
         </Typography>
         {currentUser ?
