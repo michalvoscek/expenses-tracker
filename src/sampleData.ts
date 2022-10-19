@@ -1,4 +1,6 @@
-export const sampleTransactions: (string | number)[][] = [
+import {transaction} from './types'
+
+export const sampleTransactions: transaction[] = [
   ['2022-10-01', -150, 'food', 'supermarket'],
   ['2022-10-04', -20, 'clothes', 'socks'],
   ['2022-10-07', -40, 'utility', 'electricity'],

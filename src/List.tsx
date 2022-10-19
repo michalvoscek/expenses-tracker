@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow'
 import TableContainer from '@mui/material/TableContainer'
 import Title from './Title'
 import {AppContext} from './AppContext'
+import {types} from './types'
 
 export const List = () => {
   const {filteredTransactions} = useContext(AppContext)!
@@ -28,7 +29,7 @@ export const List = () => {
               <TableRow key={i}>
                 <TableCell>{date}</TableCell>
                 <TableCell sx={{...(amount > 0 ? {color: 'success.main'} : {})}}>{amount}</TableCell>
-                <TableCell>{category}</TableCell>
+                <TableCell>{types[category] || category}</TableCell>
                 <TableCell>{desc}</TableCell>
               </TableRow>
             ))}

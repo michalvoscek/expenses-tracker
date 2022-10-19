@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import {AppContext} from './AppContext'
 import {DatePicker} from './DatePicker'
-import {types} from './types'
+import {types, category} from './types'
 
 const getAmountError = (value: string): boolean => {
   if (!value || Number(value) === NaN) {
@@ -24,7 +24,7 @@ export const Form = () => {
   const [date, setDate] = useState<string | null>(null)
   const [amount, setAmount] = useState<string>('')
   const [amountError, setAmountError] = useState<boolean>(false)
-  const [type, setType] = useState<string>('')
+  const [type, setType] = useState<category | null>(null)
   const [desc, setDesc] = useState<string>('')
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -33,9 +33,9 @@ export const Form = () => {
     if (amntErr) return
     setDate(null)
     setAmount('')
-    setType('')
+    setType(null)
     setDesc('')
-    addTransaction(date!, Number(amount), type, desc)
+    addTransaction(date!, Number(amount),type!, desc)
   }
 
   return (
@@ -62,7 +62,7 @@ export const Form = () => {
             labelId="demo-simple-select-label"
             value={type}
             label="Type"
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setType(e.target.value as category)}
           >
             {_.toPairs(types).map(([key, label]) => <MenuItem key={key} value={key}>{label}</MenuItem>)}
           </Select>
