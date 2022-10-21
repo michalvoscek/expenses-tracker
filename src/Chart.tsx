@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import _, { List } from 'lodash'
+import _ from 'lodash'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts'
 import {AppContext} from './AppContext'
 
