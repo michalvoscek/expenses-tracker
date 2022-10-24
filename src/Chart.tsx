@@ -2,12 +2,27 @@ import React, {useContext} from 'react'
 import _ from 'lodash'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts'
 import {AppContext} from './AppContext'
+import {transaction} from './types'
 
-const transform = (name: string, trs: (string | number)[][]): {[x: string]: number | string} => {
+/*const transform = (name: string, trs: transaction[]): {[x: string]: number | string} => {
   const grp = _.groupBy(trs, (t) => t[2])
   const maps: {[x: string]: number | string} = _.mapValues(grp, (arr) => Math.abs(_.sum(arr.map((r) => r[1]))))
   maps.name = name
   return maps
+}*/
+
+const transform = (name: string, trs: transaction[]): {[x: string]: number | string} => {
+  return {
+    name,
+    ..._.flow([
+      _.partialRight(_.groupBy, (t: transaction) => t[2]),
+      _.partialRight(_.mapValues, (arr: transaction[]) => _.flow([
+        _.partialRight(_.map, (r: transaction) => r[1]),
+        _.sum,
+        Math.abs,
+      ])(arr)),
+    ])(trs)
+  }
 }
 
 export const Chart = () => {
@@ -20,7 +35,6 @@ export const Chart = () => {
   ]
   return (
     <React.Fragment>
-      {/*<Title>Today</Title>*/}
       <ResponsiveContainer>
         <BarChart
           width={500}
