@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {BrowserRouter, Route,  Routes, Navigate} from "react-router-dom"
 import './App.css'
 import {DataLoader, AppContext} from './AppContext'
@@ -29,9 +29,10 @@ const App = () => {
   );
 }
 
-export default () => (
+const AppWrapper = () => (
   <DataLoader>
     <App/>
   </DataLoader>
 );
 
+export default AppWrapper

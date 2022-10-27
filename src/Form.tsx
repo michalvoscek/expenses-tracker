@@ -12,7 +12,7 @@ import {DatePicker} from './DatePicker'
 import {types, category} from './types'
 
 const getAmountError = (value: string): boolean => {
-  if (!value || Number(value) === NaN) {
+  if (!value || isNaN(Number(value))) {
     return true
   } else {
     return false
