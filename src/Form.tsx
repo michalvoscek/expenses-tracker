@@ -21,21 +21,21 @@ const getAmountError = (value: string): boolean => {
 
 export const Form = () => {
   const {addTransaction} = useContext(AppContext)!
-  const [date, setDate] = useState<string | null>(null)
+  const [date, setDate] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
   const [amountError, setAmountError] = useState<boolean>(false)
-  const [type, setType] = useState<category | null>(null)
+  const [type, setType] = useState<category | ''>('')
   const [desc, setDesc] = useState<string>('')
   const handleSubmit = (e: any) => {
     e.preventDefault()
     const amntErr = getAmountError(amount)
     setAmountError(amntErr)
     if (amntErr) return
-    setDate(null)
+    setDate('')
     setAmount('')
-    setType(null)
+    setType('')
     setDesc('')
-    addTransaction(date!, Number(amount),type!, desc)
+    addTransaction(date!, Number(amount), type as category, desc)
   }
 
   return (

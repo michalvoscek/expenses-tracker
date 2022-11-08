@@ -6,18 +6,18 @@ import TextField from '@mui/material/TextField'
 
 export const DatePicker = (props: {
   label:string,
-  value: (string | null),
-  onChange: (val: string | null) => void
+  value: string,
+  onChange: (val: string) => void
 }) => {
   const setDate = (mnt: moment.Moment | null) => {
     if (mnt && mnt.isValid()) props.onChange(mnt!.format('YYYY-MM-DD'))
-    else props.onChange(null)
+    else props.onChange('')
   }
   return (<LocalizationProvider dateAdapter={AdapterMoment}>
     <DesktopDatePicker
       label={props.label}
       inputFormat="YYYY-MM-DD"
-      value={props.value}
+      value={props.value || null}
       onChange={setDate}
       renderInput={(params) => <TextField {...params} />}
     />

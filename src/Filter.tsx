@@ -7,11 +7,11 @@ export const Filter = () => {
   const {filter, setFilter} = useContext(AppContext)!
   const {from, to} = filter
 
-  const onFromChange = (value: string | null) => {
+  const onFromChange = (value: string) => {
     setFilter(value, to)
   }
 
-  const onToChange = (value: string | null) => {
+  const onToChange = (value: string) => {
     setFilter(from, value)
   }
 

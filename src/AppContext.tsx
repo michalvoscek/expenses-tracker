@@ -8,10 +8,10 @@ interface AppState {
   transactions: transaction[],
   filteredTransactions: transaction[],
   filter: {
-    from: string | null,
-    to: string | null,
+    from: string,
+    to: string,
   },
-  setFilter: (from: string | null, to: string | null) => void,
+  setFilter: (from: string, to: string) => void,
   addTransaction: (date: string, amount: number, type: category, desc: string) => void,
   logout: () => void
 }
@@ -21,7 +21,7 @@ export const AppContext = React.createContext<AppState | null>(null)
 export const DataLoader = (props: any) => {
   const [currentUser, setCurrentUser] = useState('')
   const [transactions, setTransactions] = useState<transaction[]>([])
-  const [filter, setFltr] = useState<{from: string | null, to: string | null}>({from: null, to: null})
+  const [filter, setFltr] = useState<{from: string, to: string}>({from: '', to: ''})
   const login = (username: string, password: string) => {
     if (username) {
       setCurrentUser(username)
@@ -33,9 +33,9 @@ export const DataLoader = (props: any) => {
   const logout = () => {
     setCurrentUser('')
     setTransactions([])
-    setFltr({from: null, to: null})
+    setFltr({from: '', to: ''})
   }
-  const setFilter = (from: string | null, to: string | null) => {
+  const setFilter = (from: string, to: string) => {
     setFltr({from, to})
   }
   const addTransaction = (date: string, amount: number, type: category, desc: string) => {
